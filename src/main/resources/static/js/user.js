@@ -3,9 +3,6 @@ let index = {
 		$("#btn-save").on("click", ()=> {
 			this.save();
 		});
-		$("#btn-login").on("click", ()=> {
-			this.login();
-		});
 	},
 	
 	save : function() {
@@ -26,7 +23,7 @@ let index = {
 	//ajax가 통신을 성공하고 서버가 json을 리턴해주면 자동으로 자바 오브젝트로 변환해줌.
 	$.ajax({
 		type: "POST",
-		url: "/api/user", 
+		url: "/auth/joinProc", 
 		data: JSON.stringify(data),   //http body데이터 
 		contentType: "application/json; charsey=utf-8",    //body데이터가 어떤 타입인지 (MIME)
 		dataType: "json"  //요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 String (생긴게 json이라면 -> 자바스크립트로 변경)
@@ -37,31 +34,8 @@ let index = {
 	}).fail(function(){
 		alert(JSON.stringify(error));
 	});   
-	},
-	
-	login : function() {
-		
-		//alert('user의 save함수 호출됨');
-		
-		let data = {
-			username: $("#username").val(),
-			password: $("#password").val()
-		};
-		
-	$.ajax({
-		type: "POST",
-		url: "/api/user/login", 
-		data: JSON.stringify(data),   //http body데이터 
-		contentType: "application/json; charsey=utf-8",    //body데이터가 어떤 타입인지 (MIME)
-		dataType: "json"  //요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 String (생긴게 json이라면 -> 자바스크립트로 변경)
-		
-	}).done(function(resp){
-		alert("로그인이 완료되었습니다.");
-		location.href="/";
-	}).fail(function(){
-		alert(JSON.stringify(error));
-	});   
 	}
+	
 }
 
 index.init();

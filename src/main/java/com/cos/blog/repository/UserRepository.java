@@ -13,12 +13,18 @@ import org.springframework.data.jpa.repository.Query;
 //@Repository 생략가능 
 public interface UserRepository extends JpaRepository<User, Integer> {    //해당 repository는 user가 관리하는 repository, user table의 primary key는 Integer
 	
-	//JPA Naming 쿼리
+	
+	
+	
+	
+ 	
+}
+
+
+//JPA Naming 쿼리
 	//Select * From user Where usernameWhere =Where username = ?1 AND Password = ?2;
-	User findByUsernameAndPassword(String useranme, String password);
+	//User findByUsernameAndPassword(String useranme, String password);
 	
 	//같은 방법
 //	@Query(value = "Select * From user Where usernameWhere =Where username = ?1 AND Password = ?2", nativeQuery = true)
 //	User login(String username, String password);
- 	
-}
