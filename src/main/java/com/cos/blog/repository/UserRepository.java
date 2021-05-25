@@ -1,6 +1,7 @@
 package com.cos.blog.repository;
 import com.cos.blog.model.User;
 
+import java.util.Optional;
 
 import javax.persistence.criteria.From;
 
@@ -11,13 +12,8 @@ import org.springframework.data.jpa.repository.Query;
 
 
 //@Repository 생략가능 
-public interface UserRepository extends JpaRepository<User, Integer> {    //해당 repository는 user가 관리하는 repository, user table의 primary key는 Integer
-	
-	
-	
-	
-	
- 	
+public interface UserRepository extends JpaRepository<User, Integer>{
+	Optional<User> findByUsername(String username);
 }
 
 
