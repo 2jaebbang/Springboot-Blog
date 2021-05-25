@@ -28,7 +28,7 @@ let index = {
 		}).done(function(resp) {
 			alert("글 쓰기가 완료되었습니다.");
 			location.href = "/";
-		}).fail(function() {
+		}).fail(function(error) {
 			alert(JSON.stringify(error));
 		});
 	},
@@ -44,7 +44,7 @@ let index = {
 		}).done(function(resp) {
 			alert("삭제가 완료되었습니다.");
 			location.href="/";
-		}).fail(function() {
+		}).fail(function(error) {
 			alert(JSON.stringify(error));
 		});
 	},
@@ -69,7 +69,7 @@ let index = {
 		}).done(function(resp) {
 			alert("글 수정이 완료되었습니다.");
 			location.href = "/";
-		}).fail(function() {
+		}).fail(function(error) {
 			alert(JSON.stringify(error));
 		});
 	}
