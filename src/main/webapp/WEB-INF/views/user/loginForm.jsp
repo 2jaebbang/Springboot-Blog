@@ -6,20 +6,16 @@
 	<form action="/auth/loginProc" method="post">
 		<div class="form-group">
 			<label for="username">Username</label> 
-			<input type="text" class="form-control" placeholder="Enter username" id="username" name="username">
+			<input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
 		</div>
 				
 		<div class="form-group">
 			<label for="password">Password</label> 
-			<input type="password" class="form-control" placeholder="Enter password" id="password" name="password">
+			<input type="password" name="password" class="form-control" placeholder="Enter password" id="password">
 		</div>
 		
-		<div class="form-group form-check">
-			<label class="form-check-label"> 
-			<input class="form-check-input" type="checkbox" name="remember"> Remember me
-			</label>
-		</div>
-		<button class="btn btn-primary">로그인</button>
+		<button id="btn-login" class="btn btn-primary">로그인</button>
+		<a href="https://kauth.kakao.com/oauth/authorize?client_id=427dca390113b402ac088bae99b2c3e3&redirect_uri=http://localhost:8000/auth/kakao/callback&response_type=code"><img height="38px" src="/image/kakao_login_button.png" /></a>
 	</form>
 	
 </div>
