@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
@@ -25,6 +26,7 @@ public class BoardService {
 
 	private final BoardRepository boardRepository;
 	private final ReplyRepository replyRepository;
+	private final UserRepository userRepository;
 
 	@Transactional
 	public void 글쓰기(Board board, User user) {
@@ -60,19 +62,38 @@ public class BoardService {
 		board.setContent(requestBoard.getContent());
 		// 해당 함수로 종료시 ( Service가 종료될때) 트랜잭션이 종료됨. 더티체킹 - 자동 업데이트 일어남. db flush
 	}
-	
+
+	/*
+	 * @Transactional public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+	 * Board board = boardRepository.findById(boardId).orElseThrow(() -> { return
+	 * new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다."); });
+	 * requestReply.setUser(user); requestReply.setBoard(board);
+	 * replyRepository.save(requestReply); }
+	 */
+
+	/*
+	 * @Transactional public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+	 * 
+	 * User user =
+	 * userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()-> {
+	 * return new IllegalArgumentException("댓글 쓰기 실패 : 유저 id를 찾을 수 없습니다. "); });
+	 * 
+	 * Board board =
+	 * boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()-> {
+	 * return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다. "); });
+	 * 
+	 * Reply reply = Reply.builder() .user(user) .board(board)
+	 * .content(replySaveRequestDto.getContent()) .build();
+	 * 
+	 * replyRepository.save(reply); }
+	 */
+
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
-		Board board = boardRepository.findById(boardId).orElseThrow(() -> {
-			return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
-		});
-		
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
-		
-		replyRepository.save(requestReply);
+	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+		int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(),replySaveRequestDto.getContent());
+		System.out.println("BoardService : " + result);
 	}
-	
+
 	@Transactional
 	public void 댓글삭제(int replyId) {
 		replyRepository.deleteById(replyId);
