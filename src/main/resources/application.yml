@@ -33,3 +33,6 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+      
+cos:
+  key: cos1234    #실제 서비스시 절대 노출 x
